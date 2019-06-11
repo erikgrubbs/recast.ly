@@ -5,7 +5,7 @@ var VideoList = (props) => (
   <div className="video-list">
     {props.videos.map((video, key) => (
       <VideoListEntry 
-        appState = {props.appState}
+        clickFunc = {props.clickFunc}
         video = {video}
         key = {key}
       />

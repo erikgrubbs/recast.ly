@@ -1,16 +1,8 @@
 import App from './App.js';
 
-var click = (props) => {
-  props.appState.setState( {
-    currentVideo: props.video
-  });
-};
+
 
 var VideoListEntry = (props) => {
-  // click = () => {
-  //   props.appState.setState( {
-  //     currentVideo: this.props.video
-  //   });
   
 
   return (
@@ -19,8 +11,8 @@ var VideoListEntry = (props) => {
         <img className="media-object" src={props.video.snippet.thumbnails.default.url}alt="" />
       </div>
       <div className="media-body">
-        {/* <div onClick={click(props)} className="video-list-entry-title">{props.video.snippet.title}</div> */}
-        <div onClick={()=>{}} className="video-list-entry-title">{props.video.snippet.title}</div>
+        {/* <div onClick={console.log(props.video)} className="video-list-entry-title">{props.video.snippet.title}</div> */}
+        <div onClick={props.clickFunc.bind(props.video)} className="video-list-entry-title">{props.video.snippet.title}</div>
         <div className="video-list-entry-detail">{props.video.snippet.description}</div>
       </div>
     </div>
