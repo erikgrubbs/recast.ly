@@ -2,7 +2,8 @@ import Search from './Search.js';
 import VideoPlayer from './VideoPlayer.js';
 import VideoList from './VideoList.js';
 import exampleVideoData from '../data/exampleVideoData.js';
-
+import searchYouTube from '../lib/searchYouTube.js';
+import YOUTUBE_API_KEY from '../config/youtube.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -10,16 +11,20 @@ class App extends React.Component {
     this.state = {
       videos: exampleVideoData,
       currentVideo: exampleVideoData[0]
-      // index: indexof props.video;
     };
     this.onVideoClick = this.onVideoClick.bind(this);
   }
 
-  onVideoClick(video) {
+  onVideoClick(event) {
+    var newVid = this.state.videos.find((video) => {
+      return video.snippet.title === event.target.textContent;
+    });
+
     this.setState({
-      currentVideo: video
+      currentVideo: newVid
     });
   }
+ 
 
   render() {
     return (  
@@ -39,6 +44,19 @@ class App extends React.Component {
         </div>
       </div>
     );
+  }
+
+  componentDidMount() {
+    this.getVideos();
+  }
+
+  getVideos() {
+    var options = {
+      query: '',
+      max: 5,
+      key: YOUTUBE_API_KEY
+    };
+    searchYouTube(options, () => { console.log('success'); });
   }
 }
 

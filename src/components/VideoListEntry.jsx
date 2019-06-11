@@ -12,7 +12,7 @@ var VideoListEntry = (props) => {
       </div>
       <div className="media-body">
         {/* <div onClick={console.log(props.video)} className="video-list-entry-title">{props.video.snippet.title}</div> */}
-        <div onClick={props.clickFunc.bind(props.video)} className="video-list-entry-title">{props.video.snippet.title}</div>
+        <div onClick={props.clickFunc} className="video-list-entry-title">{props.video.snippet.title}</div>
         <div className="video-list-entry-detail">{props.video.snippet.description}</div>
       </div>
     </div>
