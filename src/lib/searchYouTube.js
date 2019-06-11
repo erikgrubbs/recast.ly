@@ -1,25 +1,15 @@
 var searchYouTube = (options, callback) => {
   // TODO
+  var result;
 
   $.get('https://www.googleapis.com/youtube/v3/search', {
     videoEmbeddable: true,
     type: 'video',
     key: options.key,
-    max: options.max,
-    query: options.query,
+    maxResults: options.max,
+    q: options.query,
     part: 'snippet',
-  }, (result) => { console.log(result); });
-
+  }, callback );
 };
-
-
-// id
-//   videoId
-// snippet
-//   title
-//   description
-//   thumbnails
-
-
 
 export default searchYouTube;

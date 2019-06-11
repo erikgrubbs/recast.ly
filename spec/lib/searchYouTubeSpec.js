@@ -74,14 +74,14 @@ describe('searchYouTube', function() {
     var options = {
       key: YOUTUBE_API_KEY,
       query: 'react',
-      max: 5
+      max: 5,
     };
 
     // We want this test to make a real AJAX request
     xhr.restore();
 
     searchYouTube(options, (data) => {
-      expect(hasSameShape(data, exampleVideoData)).to.be.true;
+      expect(hasSameShape(data.items, exampleVideoData)).to.be.true;
       done();
     });
   });
