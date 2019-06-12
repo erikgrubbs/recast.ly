@@ -1,16 +1,14 @@
 import Search from './Search.js';
 import VideoPlayer from './VideoPlayer.js';
 import VideoList from './VideoList.js';
-// import exampleVideoData from '../data/exampleVideoData.js';
-import searchYouTube from '../lib/searchYouTube.js';
-import YOUTUBE_API_KEY from '../config/youtube.js';
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       videos: [],  
-      currentVideo: //exampleVideoData[0],
+      currentVideo:
       {
         id: {
           videoId: ''
@@ -25,48 +23,20 @@ class App extends React.Component {
           }
         }
       }, 
-      search: 'diy'
     };
     this.onVideoClick = this.onVideoClick.bind(this);
-    this.onType = this.onType.bind(this);
+    this.getVideos = this.getVideos.bind(this);
   }
 
-  onVideoClick(event) {
-    var newVid = this.state.videos.find((video) => {
-      return video.snippet.title === event.target.textContent;
-    });
 
-    this.setState({
-      currentVideo: newVid
-    });
-  }
  
-  onType(event) {
-    console.log(event.target.value);
-    this.setState({
-      search: event.target.value
-    }); 
-    
-    var options = {
-      query: this.state.search,
-      max: 5,
-      key: YOUTUBE_API_KEY
-    };
-
-    searchYouTube(options, (data) => {
-      this.setState({ 
-        videos: data.items,
-        currentVideo: data.items[0]
-      });  
-    });
-  }
 
   render() {
     return (  
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <Search searchFunc={this.onType}/>
+            <Search searchFunc={this.getVideos}/>
           </div>
         </nav>
         <div className="row">
@@ -82,13 +52,17 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    this.getVideos('bananas');
+  }
+
+  getVideos(query) {
     var options = {
-      query: this.state.search,
+      query: query,
       max: 5,
-      key: YOUTUBE_API_KEY
+      key: this.props.YOUTUBE_API_KEY
     };
 
-    searchYouTube(options, (data) => {
+    this.props.searchYouTube(options, (data) => {
       this.setState({ 
         videos: data.items,
         currentVideo: data.items[0]
@@ -96,6 +70,15 @@ class App extends React.Component {
     });
   }
 
+  onVideoClick(event) {
+    var newVid = this.state.videos.find((video) => {
+      return video.snippet.title === event.target.textContent;
+    });
+
+    this.setState({
+      currentVideo: newVid
+    });
+  }
 
 }
 
